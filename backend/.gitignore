@@ -1,0 +1,45 @@
+# التبعيات
+/node_modules
+/.pnp
+.pnp.js
+
+# اختبار
+/coverage
+
+# الإنتاج
+/build
+/dist
+
+# متغيرات البيئة
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# السجلات
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# نظام التشغيل
+.DS_Store
+
+# محرر الأكواد
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# الملفات المرفوعة
+/public/uploads/*
+!public/uploads/.gitkeep
+
+# Firebase
+/config/firebase-service-account.json
+
+# ملفات النظام
+Thumbs.db
