@@ -3,14 +3,14 @@ const User = require('../models/userModel');
 
 // تهيئة Firebase Admin SDK
 // تأكد من إضافة ملف serviceAccountKey.json إلى مجلد config
-const serviceAccount = require('../config/firebase-service-account.json');
+//const serviceAccount = require('../config/firebase-service-account.json');
 
 // تهيئة Firebase Admin
-if (!admin.apps.length) {
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-  });
-}
+// if (!admin.apps.length) {
+//   admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount)
+//   });
+// }
 
 /**
  * إرسال إشعار دفعي

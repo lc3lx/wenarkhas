@@ -4,7 +4,7 @@ const {
   removeFcmToken,
   updateNotificationSettings
 } = require('../controller/fcmController');
-const { protect } = require('../middlewares/authMiddleware');
+const { protect } = require('../controller/authController');
 
 const router = express.Router();
 

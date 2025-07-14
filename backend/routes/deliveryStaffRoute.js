@@ -9,7 +9,7 @@ const {
   deleteDeliveryStaff,
   getDeliveryStats,
   getMyProfile
-} = require('../controllers/deliveryStaffController');
+} = require('../controller/deliveryStaffController');
 const { protect } = require('../controller/authController');
 const { 
   restrictTo, 

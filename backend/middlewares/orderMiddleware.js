@@ -1,5 +1,5 @@
 const Order = require('../models/orderModel');
-const { createNotification } = require('../controllers/notificationController');
+const { createNotification } = require('../controller/notificationController');
 const ApiError = require('../utils/apiError');
 
 /**

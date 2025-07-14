@@ -3,6 +3,7 @@ const DeliveryStaff = require('../models/deliveryStaffModel');
 const User = require('../models/userModel');
 const ApiError = require('../utils/apiError');
 const { createNotification } = require('./notificationController');
+const mongoose = require('mongoose');
 
 // @desc    إنشاء موظف توصيل جديد
 // @route   POST /api/v1/delivery-staff
@@ -131,6 +132,41 @@ exports.updateAvailability = asyncHandler(async (req, res, next) => {
   }
   
   await staff.save();
+  
+  res.status(200).json({
+    status: 'success',
+    data: {
+      staff
+    }
+  });
+});
+
+// @desc    تحديث موقع موظف التوصيل
+// @route   PATCH /api/v1/delivery-staff/me/location
+// @access  Private/Delivery
+exports.updateLocation = asyncHandler(async (req, res, next) => {
+  const { longitude, latitude, address } = req.body;
+  
+  if (!longitude || !latitude) {
+    return next(new ApiError('يجب توفير خط الطول وخط العرض', 400));
+  }
+  
+  // البحث عن موظف التوصيل المرتبط بالمستخدم الحالي
+  const staff = await DeliveryStaff.findOne({ user: req.user._id });
+  
+  if (!staff) {
+    return next(new ApiError('لم يتم العثور على بيانات الموظف', 404));
+  }
+  
+  // تحديث الموقع
+  staff.currentLocation = {
+    type: 'Point',
+    coordinates: [longitude, latitude],
+    address: address || staff.currentLocation?.address
+  };
+  staff.lastActive = Date.now();
+  
+  await staff.save({ validateBeforeSave: false });
   
   res.status(200).json({
     status: 'success',
@@ -270,6 +306,31 @@ exports.getDeliveryStats = asyncHandler(async (req, res, next) => {
     status: 'success',
     data: {
       stats: stats[0] || {}
+    }
+  });
+});
+
+// @desc    الحصول على ملفي الشخصي كموظف توصيل
+// @route   GET /api/v1/delivery-staff/me
+// @access  Private/Delivery
+exports.getMyProfile = asyncHandler(async (req, res, next) => {
+  const staff = await DeliveryStaff.findOne({ user: req.user._id })
+    .populate('user', 'name email phone profileImg')
+    .populate('assignedZone', 'name')
+    .populate({
+      path: 'orders',
+      select: '_id status total deliveryFee createdAt',
+      options: { sort: { createdAt: -1 }, limit: 10 }
+    });
+
+  if (!staff) {
+    return next(new ApiError('لم يتم العثور على ملفك الشخصي كموظف توصيل', 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    data: {
+      staff
     }
   });
 });

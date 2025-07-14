@@ -14,6 +14,7 @@ const notificationRoute = require('./notificationRoute');
 const fcmRoute = require('./fcmRoute');
 const orderRoute = require('./orderRoute');
 const deliveryStaffRoute = require('./deliveryStaffRoute');
+const storeRoute = require('./storeRoute');
 
 const mountRoutes = (app) => {
   app.use("/api/v1/categories", categoryRoute);
@@ -32,6 +33,7 @@ const mountRoutes = (app) => {
   app.use("/api/v1/fcm", fcmRoute);
   app.use("/api/v1/orders", orderRoute);
   app.use("/api/v1/delivery-staff", deliveryStaffRoute);
+  app.use("/api/v1/stores", storeRoute);
 };
 
 module.exports = mountRoutes;

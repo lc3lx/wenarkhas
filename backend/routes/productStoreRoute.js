@@ -9,7 +9,7 @@ const {
   getProductStores: getStoresForProduct,
 } = require('../controller/productStoreController');
 
-const { protect, allowedTo } = require('../middlewares/authMiddleware');
+const { protect, allowedTo } = require('../controller/authController');
 
 const router = express.Router();
 

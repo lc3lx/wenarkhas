@@ -19,11 +19,9 @@ const storeSchema = new mongoose.Schema(
         default: 'Point',
         enum: ['Point']
       },
-      coordinates: [Number],
       address: String,
       description: String
     },
-    website: String,
     phone: String,
     email: String,
     description: String,
