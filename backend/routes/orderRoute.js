@@ -7,13 +7,10 @@ const {
   getStoreOrders,
   getDeliveryOrders,
   assignDeliveryStaff
-} = require('../controllers/orderController');
+} = require('../controller/orderController');
 const { protect } = require('../controller/authController');
 const { 
   restrictTo, 
-  isStoreOwnerOrAdmin, 
-  isAssignedDelivery, 
-  isOrderOwner 
 } = require('../middlewares/roleMiddleware');
 
 const router = express.Router();

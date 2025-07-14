@@ -82,23 +82,6 @@ const dbConnection = require("./config/database");
 // Routes
 const mountRoutes = require("./routes");
 
-// Serve Swagger UI
-app.use('/api-docs', 
-  swaggerUi.serve, 
-  swaggerUi.setup(swaggerDocs, {
-    explorer: true,
-    customCss: '.swagger-ui .topbar { display: none }',
-    customSiteTitle: 'WenArkhas API Documentation',
-    customfavIcon: '/favicon.ico',
-    swaggerOptions: {
-      docExpansion: 'none',
-      filter: true,
-      showRequestDuration: true,
-      persistAuthorization: true
-    }
-  })
-);
-
 // تخزين المستخدمين المتصلين
 const connectedUsers = {};
 
@@ -171,6 +154,23 @@ const limiter = rateLimit({
 
 // Apply the rate limiting middleware to all requests
 app.use("/api", limiter);
+
+// Serve Swagger UI
+app.use('/api-docs', 
+  swaggerUi.serve, 
+  swaggerUi.setup(swaggerDocs, {
+    explorer: true,
+    customCss: '.swagger-ui .topbar { display: none }',
+    customSiteTitle: 'WenArkhas API Documentation',
+    customfavIcon: '/favicon.ico',
+    swaggerOptions: {
+      docExpansion: 'none',
+      filter: true,
+      showRequestDuration: true,
+      persistAuthorization: true
+    }
+  })
+);
 
 // Middleware to protect against HTTP Parameter Pollution attacks
 app.use(
